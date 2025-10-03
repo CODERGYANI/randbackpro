@@ -2,6 +2,7 @@ const express=require('express');
 const cookieparser=require('cookie-parser');
 const jwt=require('jsonwebtoken');
 const app=express();
+const model=require('./models/user.js');
 const bcrypt=require('bcrypt');
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -24,6 +25,7 @@ app.get('/',(req,res)=>{
         });
     }
     else{
+
          res.render("index");
     }
     
@@ -31,12 +33,25 @@ app.get('/',(req,res)=>{
 app.get('/sign',(req,res)=>{
     res.render("signup");
 })
-app.post('/sign',(req,res)=>{
+app.post('/sign',async (req,res)=>{
     const name=req.body.username;
-    const pass=req.body.password;
+    const password=req.body.password;
     const email=req.body.email;
-    bcrypt.genSalt(10,(err,salt)=>{
-        bcrypt.hash(pass,salt,(err,hash)=>{
+    const exist= await model.findOne({email});
+    if(exist){
+        res.send("user already exist,please login");
+    }else{
+         bcrypt.genSalt(10,(err,salt)=>{
+        bcrypt.hash(password,salt,async (err,hash)=>{
+            
+            let created=await model.create({
+                name,
+                password:hash,
+                email
+            })
+            
+            await created.save();
+            
             let token=jwt.sign({"email":email},"secret");
             res.cookie("token",token);
             res.redirect('/content');
@@ -46,7 +61,34 @@ app.post('/sign',(req,res)=>{
 
 
 
+
     
+
+
+    }
+});
+   
+app.post('/login',async(req,res)=>{
+    const password=req.body.password;
+    const email=req.body.email;
+    const use= await model.findOne({email});
+   
+    
+    if(use){
+        const ex= await bcrypt.compare(password,use.password);
+        if(ex){
+            let token=jwt.sign({"email":email},"secret");
+            res.cookie("token",token);
+            res.redirect('/content');
+        }else{
+            res.send("something went wrong");
+        }
+
+
+    }else{
+        res.send("user not found");
+    }
+
 });
 app.get('/content',(req,res)=>{
     let tokken=req.cookies.token;

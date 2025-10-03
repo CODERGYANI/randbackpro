@@ -1,0 +1,205 @@
+/* File: ./scripts/signup.css */
+
+/* ========== Design Tokens (3-5 colors total) ========== */
+:root {
+  --color-bg: #f6f7fb;        /* neutral background */
+  --color-surface: #ffffff;   /* card surface */
+  --color-text: #111827;      /* text (gray-900) */
+  --color-muted: #6b7280;     /* muted text (gray-500) */
+  --color-primary: #2563eb;   /* brand primary (blue-600) */
+  /* Derived tints/shadows from primary (not new colors) */
+  --ring-primary: rgba(37, 99, 235, 0.15);
+  --shadow-lg: 0 10px 20px rgba(17, 24, 39, 0.08), 0 2px 6px rgba(17, 24, 39, 0.06);
+  --shadow-hover: 0 12px 24px rgba(17, 24, 39, 0.12), 0 3px 8px rgba(17, 24, 39, 0.08);
+}
+
+/* Dark mode using same tokens with adjusted values */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0b1220;        /* deep slate/navy */
+    --color-surface: #0f172a;   /* slate-900 */
+    --color-text: #e5e7eb;      /* gray-200 */
+    --color-muted: #9ca3af;     /* gray-400 */
+    --color-primary: #3b82f6;   /* blue-500 for better contrast in dark */
+    --ring-primary: rgba(59, 130, 246, 0.22);
+    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.35), 0 3px 10px rgba(0, 0, 0, 0.25);
+    --shadow-hover: 0 16px 32px rgba(0, 0, 0, 0.45), 0 6px 16px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* ========== Base Reset ========== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Center content vertically and horizontally */
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+/* ========== Layout & Typography ========== */
+body > h1 {
+  margin: 0 0 16px;
+  font-size: clamp(1.5rem, 1.1rem + 2vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-align: center;
+  line-height: 1.2;
+}
+
+form {
+  width: 100%;
+  max-width: 420px;
+  background: var(--color-surface);
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: var(--shadow-lg);
+  display: grid;
+  gap: 14px;
+}
+
+/* Make the text label line and the input feel cohesive */
+form p {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+/* The HTML uses <br> to break label and input; hide it visually since we already use spacing */
+form p br {
+  display: none;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  appearance: none;
+  border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+  background: #fff; /* remains white on light; on dark, surface is already dark */
+  color: var(--color-text);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 120ms ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    background: color-mix(in srgb, var(--color-surface) 95%, var(--color-text));
+    border-color: color-mix(in srgb, var(--color-text) 20%, transparent);
+  }
+}
+
+input::placeholder {
+  color: var(--color-muted);
+}
+
+/* Focus styles with clear visible ring */
+input[type="text"]:focus-visible,
+input[type="email"]:focus-visible,
+input[type="password"]:focus-visible {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--ring-primary);
+}
+
+/* Subtle hover lift on interactive fields */
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="password"]:hover {
+  transform: translateY(-1px);
+}
+
+/* Submit button */
+input[type="submit"] {
+  appearance: none;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  background: var(--color-primary);
+  color: #ffffff;
+  box-shadow: var(--shadow-lg);
+  transition: transform 120ms ease, box-shadow 180ms ease, filter 180ms ease, background-color 180ms ease;
+}
+
+input[type="submit"]:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
+  filter: brightness(1.02);
+}
+
+input[type="submit"]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--ring-primary), var(--shadow-hover);
+}
+
+input[type="submit"]:active {
+  transform: translateY(0);
+}
+
+input[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Login hint text */
+.login-text {
+  margin-top: 14px;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.login-text a {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-text a:hover {
+  text-decoration: underline;
+}
+
+/* Card spacing when h1 is present above the form */
+body > h1 + form {
+  margin-top: 6px;
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="submit"] {
+    transform: none !important;
+  }
+}
