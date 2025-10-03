@@ -45,6 +45,7 @@ app.post('/sign',(req,res)=>{
 });
 
 
+
     
 });
 app.get('/content',(req,res)=>{
@@ -60,6 +61,10 @@ app.get('/content',(req,res)=>{
     });
 
     
+});
+app.get('/logout',(req,res)=>{
+    res.clearCookie("token");
+    res.redirect('/');
 });
 app.listen(port);
 

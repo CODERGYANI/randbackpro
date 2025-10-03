@@ -1,37 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Test Content Page</title>
+  <meta charset="UTF-8">
+  <title>Content Page</title>
+  <link rel="stylesheet" href="./scripts/style.css"> <!-- your CSS will go here -->
 </head>
 <body>
 
-  <h1>Welcome to My Test Page</h1>
-  <p>This is a simple content page to test HTML functionality.</p>
+  <header>
+    <h1>Welcome to Your Dashboard</h1>
+    <p>A clean content page for your project</p>
+  </header>
 
-  <h2>Features of this Page</h2>
-  <ul>
-    <li>Headings and paragraphs</li>
-    <li>Ordered and unordered lists</li>
-    <li>Links to other pages</li>
-    <li>Images</li>
-    <li>Interactive button</li>
-  </ul>
+  <main>
+    <section>
+      <h2>Features</h2>
+      <div class="feature">
+        <h3>Feature One</h3>
+        <p>Clean, professional layout with modern design.</p>
+      </div>
+      <div class="feature">
+        <h3>Feature Two</h3>
+        <p>Easy navigation and user-friendly.</p>
+      </div>
+      <div class="feature">
+        <h3>Feature Three</h3>
+        <p>Customizable and scalable for projects.</p>
+      </div>
+    </section>
 
-  <h2>Sample Ordered List</h2>
-  <ol>
-    <li>First item</li>
-    <li>Second item</li>
-    <li>Third item</li>
-  </ol>
+    <section>
+      <h2>Action</h2>
+      <button onclick="alert('Action executed!')">Take Action</button>
+    </section>
+  </main>
 
-  <h2>Image Example</h2>
-  <img src="https://via.placeholder.com/200" alt="Placeholder Image">
-
-  <h2>Interactive Button</h2>
-  <button onclick="alert('Hello! You clicked the button.')">Click Me</button>
-
-  <h2>Link Example</h2>
-  <p>Go to <a href="https://www.example.com" target="_blank">Example.com</a></p>
+  <footer>
+    <p><a href="/logout">Logout</a></p>
+  </footer>
 
 </body>
 </html>
